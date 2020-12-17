@@ -5,7 +5,8 @@
 
 // Initialize variable holding the binary
 // representation of active modifiers.
-uint8_t mod_state;
+
+/* uint8_t mod_state; */
 
 enum planck_layers {
     _MAIN = 0,

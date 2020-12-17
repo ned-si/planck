@@ -2,6 +2,8 @@
 #include "keymap.h"
 #include "action_tapping.h" // necessary for action_tapping_process
 
+uint8_t mod_state;
+
 enum combo_events {
     F21J_PRN,
     F21K_PRN,
