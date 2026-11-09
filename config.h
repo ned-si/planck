@@ -1,9 +1,9 @@
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-  #define RGBLIGHT_HUE_STEP 8
-  #define RGBLIGHT_SAT_STEP 8
-  #define RGBLIGHT_VAL_STEP 8
+#    define RGBLIGHT_HUE_STEP 8
+#    define RGBLIGHT_SAT_STEP 8
+#    define RGBLIGHT_VAL_STEP 8
 #endif
 
 #ifdef ENCODER_ENABLE
@@ -11,22 +11,15 @@
 #    define ENCODER_RESOLUTION 2
 #endif
 
-#define NO_ACTION_MACRO
 #define TAPPING_TERM 170
 #define TAPPING_TERM_PER_KEY
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
-#define IGNORE_MOD_TAP_INTERRUPT
+// Prevents accidental repeats of the tap-hold keys when typing quickly.
+#define QUICK_TAP_TERM 0
 
-// This prevents accidental repeats of the tap-hold keys when typing quickly.
-#define TAPPING_FORCE_HOLD
-
-// This prevents short hold periods to be interpreted as individual taps when typing quickly.
+// Prevents short hold periods from being read as taps when typing quickly.
 #define PERMISSIVE_HOLD
 
-#define COMBO_VARIABLE_LEN
-#define COMBO_COUNT COMBO_VARIABLE_LEN
 #define COMBO_TERM 70
 
-#define UNICODE_SELECTED_MODES UC_LNX, UC_WINC
-/* #define UNICODE_KEY_LNX LCTL(LSFT(KC_E)) */
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE

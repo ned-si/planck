@@ -14,11 +14,11 @@ typedef enum {
 static td_state_t td_state;
 
 // function to track the current tapdance state
-int cur_dance (qk_tap_dance_state_t *state);
+int cur_dance (tap_dance_state_t *state);
 
 
 // track the tapdance state to return
-int cur_dance (qk_tap_dance_state_t *state) {
+int cur_dance (tap_dance_state_t *state) {
   if (state->count == 1) {
     if (state->interrupted || !state->pressed) {
         return SINGLE_TAP;
@@ -37,9 +37,9 @@ int cur_dance (qk_tap_dance_state_t *state) {
 // handle the possible states for each tapdance keycode you define:
 
 // `finished` function for each tapdance keycode
-void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data);
+void CA_CC_CV_finished (tap_dance_state_t *state, void *user_data);
 
-void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data) {
+void CA_CC_CV_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -54,22 +54,22 @@ void CA_CC_CV_finished (qk_tap_dance_state_t *state, void *user_data) {
 };
 
 // `finished` function for each tapdance keycode
-void UNI_W_L_finished (qk_tap_dance_state_t *state, void *user_data);
+void UNI_W_L_finished (tap_dance_state_t *state, void *user_data);
 
-void UNI_W_L_finished (qk_tap_dance_state_t *state, void *user_data) {
+void UNI_W_L_finished (tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
-      tap_code16(UC_M_WC);
+      set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
       break;
     case DOUBLE_SINGLE_TAP:
-      tap_code16(UC_M_LN);
+      set_unicode_input_mode(UNICODE_MODE_LINUX);
     break;
     default: break;
   }
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [CA_CC_CV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CA_CC_CV_finished, NULL),
     [UNI_W_L] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, UNI_W_L_finished, NULL),
 };
@@ -154,19 +154,20 @@ MO(_OPTIONS), UNDO, REDO, MO(_SYMBOLS), KC_SPC,   KC_LSFT,  KC_TAB,  KC_SPC,MO(_
 
 [_OPTIONS] = LAYOUT_planck_grid(
      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-     _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD, _______,
-     _______, _______, _______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD,RGB_RMOD, _______,          
+     _______, _______, _______, _______, _______, _______, UG_TOGG, UG_SATU, UG_HUEU, UG_VALU, UG_NEXT, _______,
+     _______, _______, _______, _______, _______, _______, _______, UG_SATD, UG_HUED, UG_VALD,UG_PREV, _______,          
      _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT
 )
 
 };
 
 #ifdef ENCODER_ENABLE
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (clockwise) {
     tap_code(KC_VOLU);
   } else {
     tap_code(KC_VOLD);
   }
+  return false;
 }
 #endif

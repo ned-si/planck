@@ -1,17 +1,16 @@
-OLED_DRIVER_ENABLE = yes   # Enable the use of OLED displays
-ENCODER_ENABLE = yes       # Enable the use of one or more encoders
-RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
-SPLIT_TRANSPORT = mirror   # Allow to have information sent on both sides
-TAP_DANCE_ENABLE = yes     # Activate tap dance
-UNICODEMAP_ENABLE = yes    # Enable unicode map
-COMBO_ENABLE = yes 				 # Enable combos
-NKRO_ENABLE = yes 				 # Enable NKRO: any number of key-presses at once
-LTO_ENABLE = yes  				 # Enable Link Time Optimization
+# Planck rev6 (STM32F303). Standalone keymap: does not use the shared nedsi
+# userspace, which QMK would otherwise pull in for a keymap named "nedsi".
+USER_NAME := nedsi_none
 
-SRC += combos.c			       # Source combos.c 
+ENCODER_ENABLE = yes
+RGBLIGHT_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+UNICODEMAP_ENABLE = yes
+COMBO_ENABLE = yes
+NKRO_ENABLE = yes
+LTO_ENABLE = yes
+MOUSEKEY_ENABLE = no
+BACKLIGHT_ENABLE = no
 
-EXTRFLAGS += -flto
-
-WPM_ENABLE = no     	     # Disable WPM measurement
-MOUSEKEY_ENABLE = no       # Disable mouse keys
-BACKLIGHT_ENABLE = no      # Disable keyboard backlight (not RGB)
+# Combo and tap dance arrays must be visible to keymap introspection.
+INTROSPECTION_KEYMAP_C += combos.c

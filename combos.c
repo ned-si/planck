@@ -34,7 +34,6 @@ enum combo_events {
 };
 
 
-int COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM F21_J_COMBO[] = {KC_F21, HOME_J, COMBO_END};
 const uint16_t PROGMEM F21_K_COMBO[] = {KC_F21, HOME_K, COMBO_END};
@@ -62,7 +61,7 @@ const uint16_t PROGMEM F21_I_S_COMBO[] = {KC_F21, KC_I, HOME_S, COMBO_END};
 const uint16_t PROGMEM F21_T_A_COMBO[] = {KC_F21, KC_T, HOME_A, COMBO_END};
 const uint16_t PROGMEM F21_Q_COMBO[] = {KC_F21, KC_Q, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     [F21J_PRN] = COMBO_ACTION(F21_J_COMBO),
     [F21K_PRN] = COMBO_ACTION(F21_K_COMBO),
     [JK_BSPC] = COMBO_ACTION(J_K_COMBO),
@@ -105,8 +104,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                     // First canceling both shifts so that shift isn't applied
                     // to the KC_LBRC keycode since that would result in
                     // a "{" instead of a "[".            
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("[");
                     // "resuming" *the* shift so that you can hold shift 
                     // and the square brackets combo still works without
@@ -128,8 +127,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21K_PRN:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("]");
                     set_mods(mod_state);
                 }
@@ -148,8 +147,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21EV_EVERY:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Every");
                     set_mods(mod_state);
                 }
@@ -162,8 +161,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21U_YOU:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("You");
                     set_mods(mod_state);
                 }
@@ -176,8 +175,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21A_AND:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("And");
                     set_mods(mod_state);
                 }
@@ -190,8 +189,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21N_NOT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Not");
                     set_mods(mod_state);
                 }
@@ -210,8 +209,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21W_WITH:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("With");
                     set_mods(mod_state);
                 }
@@ -224,8 +223,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21F_FOR:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("For");
                     set_mods(mod_state);
                 }
@@ -238,8 +237,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21H_HERE:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Here");
                     set_mods(mod_state);
                 }
@@ -252,8 +251,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21T_THE:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("The");
                     set_mods(mod_state);
                 }
@@ -266,8 +265,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21M_MENT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Ment");
                     set_mods(mod_state);
                 }
@@ -280,8 +279,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21G_ING:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Ing");
                     set_mods(mod_state);
                 }
@@ -294,8 +293,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21O_OUGH:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Ough");
                     set_mods(mod_state);
                 }
@@ -308,8 +307,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21I_ION:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Ion");
                     set_mods(mod_state);
                 }
@@ -322,8 +321,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21IS_IONS:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Ions");
                     set_mods(mod_state);
                 }
@@ -336,8 +335,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21TA_THAT:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("That");
                     set_mods(mod_state);
                 }
@@ -350,8 +349,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case F21Q_QUE:
             if (pressed) {
                 if (mod_state & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSHIFT);
-                    unregister_code(KC_RSHIFT);
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
                     send_string("Que");
                     set_mods(mod_state);
                 }
