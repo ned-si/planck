@@ -1,0 +1,27 @@
+# Builds this keymap with the workflow in ned-si/qmk-userspace, from this
+# commit, and publishes the firmware as the "latest" release on pushes to
+# main.
+name: Build firmware
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build
+    uses: ned-si/qmk-userspace/.github/workflows/build.yml@main
+    with:
+      keymap_repo: ${{ github.repository }}
+      keymap_ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+  publish:
+    name: Publish
+    needs: build
+    if: github.event_name == 'push'
+    uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
