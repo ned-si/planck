@@ -1,6 +1,7 @@
 # Builds this keymap with the workflow in ned-si/qmk-userspace, from this
-# commit, and publishes the firmware as the "latest" release on pushes to
-# main.
+# commit. On pushes to main it also redraws the README layer diagrams and
+# publishes the firmware as a release tagged with the commit SHA (the newest is
+# always at /releases/latest).
 name: Build firmware
 
 on:
@@ -19,9 +20,3 @@ jobs:
     with:
       keymap_repo: ${{ github.repository }}
       keymap_ref: ${{ github.event.pull_request.head.sha || github.sha }}
-
-  publish:
-    name: Publish
-    needs: build
-    if: github.event_name == 'push'
-    uses: qmk/.github/.github/workflows/qmk_userspace_publish.yml@main
